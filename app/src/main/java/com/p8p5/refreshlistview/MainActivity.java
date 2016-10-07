@@ -40,10 +40,10 @@ public class MainActivity extends AppCompatActivity implements RefreshListViewLi
         mAdapter.addAll(datas);
 
 
-//        //禁用加载更多
-//        mListView.setLoadMoreEnable(false);
-//        //禁用下拉刷新
-//        mListView.setRefreshEnable(false);
+//        //禁用加载更多  默认开启
+//        mListView.setLoadMoreEnable(true);
+//        //禁用下拉刷新  默认开启
+//        mListView.setRefreshEnable(true);
 
     }
 
