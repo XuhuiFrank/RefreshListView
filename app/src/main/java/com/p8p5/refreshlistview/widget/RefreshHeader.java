@@ -44,7 +44,9 @@ public class RefreshHeader extends LinearLayout {
 
     public RefreshHeader(Context context, AttributeSet attrs) {
         super(context, attrs);
+
         init(context);
+
     }
 
     public RefreshHeader(Context context, AttributeSet attrs, int defStyleAttr) {
