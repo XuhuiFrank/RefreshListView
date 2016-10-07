@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -38,6 +39,9 @@ public class RefreshListView extends ListView implements AbsListView.OnScrollLis
     private RefreshFooter mFooter;
 
     private RefreshHeader mHeader;
+
+    //ListView是否滚动
+    boolean isScrollFilling = false;
 
     RefreshListViewListener refreshListViewListener;
 
@@ -269,6 +273,7 @@ public class RefreshListView extends ListView implements AbsListView.OnScrollLis
                 mFooter.setFooterState(RefreshFooter.PULL_TO_LOAD_MORE);
             }
         }
+
         mFooter.setFooterMargin(height);
     }
 
@@ -300,10 +305,17 @@ public class RefreshListView extends ListView implements AbsListView.OnScrollLis
         mFooter.setFooterState(RefreshFooter.PULL_TO_LOAD_MORE);
     }
 
+
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
+        if (scrollState == OnScrollListener.SCROLL_STATE_FLING) {
+            isScrollFilling = true;
+        }
+        if (scrollState == OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+            isScrollFilling = false;
+        }
         if (scrollState == OnScrollListener.SCROLL_STATE_IDLE) {
-            if (!mPullLoading && mEnablePullRefresh && mEnableAutoLoad && getLastVisiblePosition() == getCount() - 1) {
+            if (isScrollFilling && !mPullLoading && mEnablePullRefresh && mEnableAutoLoad && getLastVisiblePosition() == getCount() - 1) {
                 loadMore();
             }
         }
