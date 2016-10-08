@@ -41,12 +41,15 @@ public class MainActivity extends AppCompatActivity implements RefreshListViewLi
 
 
 //        //禁用加载更多  默认开启
-//        mListView.setLoadMoreEnable(true);
+//        mListView.setLoadMoreEnable(false);
 //        //禁用下拉刷新  默认开启
-//        mListView.setRefreshEnable(true);
+//        mListView.setRefreshEnable(false);
 
     }
 
+    /**
+     * 初始模拟有数据
+     */
     private void initData() {
         datas = new ArrayList<String>();
         for (int i = 0; i < 15; i++) {
