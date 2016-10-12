@@ -15,7 +15,6 @@ import com.p8p5.refreshlistview.R;
  */
 public class RefreshFooter extends LinearLayout {
 
-
     private TextView tv_load_state;
     private LinearLayout ll_progress;
 
@@ -24,7 +23,7 @@ public class RefreshFooter extends LinearLayout {
     public static final int LOADING_DATA = 1;
     public static final int HAS_NO_MORE = 2;
 
-    private View mView;
+    private View mContainer;
     int mState = PULL_TO_LOAD_MORE;
     boolean isFirst = true;
 
@@ -44,12 +43,12 @@ public class RefreshFooter extends LinearLayout {
     }
 
     private void init(Context context) {
-        mView = LayoutInflater.from(context).inflate(R.layout.refresh_footer, null);
-        mView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
+        mContainer = LayoutInflater.from(context).inflate(R.layout.refresh_footer, null);
+        mContainer.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
                 LayoutParams.WRAP_CONTENT));
-        addView(mView);
-        tv_load_state = (TextView) mView.findViewById(R.id.tv_load_state);
-        ll_progress = (LinearLayout) mView.findViewById(R.id.ll_progress);
+        addView(mContainer);
+        tv_load_state = (TextView) mContainer.findViewById(R.id.tv_load_state);
+        ll_progress = (LinearLayout) mContainer.findViewById(R.id.ll_progress);
 
     }
 
@@ -95,7 +94,7 @@ public class RefreshFooter extends LinearLayout {
      * @return
      */
     public int getFooterMargin() {
-        LayoutParams layoutParams = (LayoutParams) mView.getLayoutParams();
+        LayoutParams layoutParams = (LayoutParams) mContainer.getLayoutParams();
         return layoutParams.bottomMargin;
     }
 
@@ -105,9 +104,9 @@ public class RefreshFooter extends LinearLayout {
      * @param margin
      */
     public void setFooterMargin(int margin) {
-        LayoutParams layoutParams = (LayoutParams) mView.getLayoutParams();
+        LayoutParams layoutParams = (LayoutParams) mContainer.getLayoutParams();
         layoutParams.bottomMargin = margin;
-        mView.setLayoutParams(layoutParams);
+        mContainer.setLayoutParams(layoutParams);
 
 
     }
@@ -116,9 +115,9 @@ public class RefreshFooter extends LinearLayout {
      * 当禁用下拉刷新时，footer隐藏
      */
     public void hide() {
-        LayoutParams lp = (LayoutParams) mView.getLayoutParams();
+        LayoutParams lp = (LayoutParams) mContainer.getLayoutParams();
         lp.height = 0;
-        mView.setLayoutParams(lp);
+        mContainer.setLayoutParams(lp);
     }
 
 
@@ -126,9 +125,9 @@ public class RefreshFooter extends LinearLayout {
      * 当禁用下拉刷新时，footer显示
      */
     public void show() {
-        LayoutParams lp = (LayoutParams) mView.getLayoutParams();
+        LayoutParams lp = (LayoutParams) mContainer.getLayoutParams();
         lp.height = LayoutParams.WRAP_CONTENT;
-        mView.setLayoutParams(lp);
+        mContainer.setLayoutParams(lp);
     }
 
 

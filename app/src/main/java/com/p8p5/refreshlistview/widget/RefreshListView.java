@@ -4,7 +4,6 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -148,6 +147,7 @@ public class RefreshListView extends ListView implements AbsListView.OnScrollLis
                     if (!mPullRefreshing && mEnablePullRefresh && (mHeader.getHeaderHeight() > mHeaderHeight)) {
                         refresh();
                     }
+                    //RefreshHeader位置自动滚动到相应位置
                     resetHeaderHeight();
                 }
 
@@ -155,6 +155,7 @@ public class RefreshListView extends ListView implements AbsListView.OnScrollLis
                     if (!mPullLoading && mEnableLoadMore && (mFooter.getFooterMargin() > PULL_LOAD_MORE_DELTA)) {
                         loadMore();
                     }
+                    //RefreshFooter位置自动滚动到相应位置
                     resetFooterHeight();
                 }
 
@@ -219,8 +220,7 @@ public class RefreshListView extends ListView implements AbsListView.OnScrollLis
         if (height == 0)
             return;
 
-
-        if (mPullRefreshing && height < mHeaderHeight) {  //正在刷新并且将header隐藏时
+        if (mPullRefreshing && height < mHeaderHeight) {  //正在刷新并且将header向上拖动隐藏时
             return;
         }
 
@@ -249,8 +249,9 @@ public class RefreshListView extends ListView implements AbsListView.OnScrollLis
 
 
     private void updateHeaderHeight(float delta) {
+        //改变RefreshHeader高度
         mHeader.setHeaderHeight((int) delta + mHeader.getHeaderHeight());
-
+        //改变RefreshHeader状态
         if (mEnablePullRefresh && !mPullRefreshing) {
             if (mHeader.getHeaderHeight() > mHeaderHeight) {
                 mHeader.setHeaderState(RefreshHeader.RELEASE_TO_REFRESH);
@@ -258,15 +259,14 @@ public class RefreshListView extends ListView implements AbsListView.OnScrollLis
                 mHeader.setHeaderState(RefreshHeader.PULL_TO_REFRESH);
             }
         }
-
-        // scroll to top each time
+        //保证改变RefreshListView高度的同时，不滑动RefreshListView
         setSelection(0);
     }
 
     private void updateFooterHeight(float delta) {
         int height = (int) delta + mFooter.getFooterMargin();
+
         if (mEnableLoadMore && !mPullLoading) {
-            // update the arrow image unrefreshing
             if (mFooter.getFooterMargin() > PULL_LOAD_MORE_DELTA) {
                 mFooter.setFooterState(RefreshFooter.RELEASE_TO_LOAD_MORE);
             } else {
@@ -286,7 +286,7 @@ public class RefreshListView extends ListView implements AbsListView.OnScrollLis
             } else {
                 mFooter.setFooterMargin(mScroller.getCurrY());
             }
-//            postInvalidate();
+
         }
         super.computeScroll();
     }

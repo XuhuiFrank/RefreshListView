@@ -25,9 +25,9 @@ public class RefreshHeader extends LinearLayout {
     private ProgressBar progressBar;
     private RelativeLayout rl_my_content;
 
-    public static final int PULL_TO_REFRESH = 0;
-    public static final int RELEASE_TO_REFRESH = 1;
-    public static final int REFRESHING = 2;
+    public static final int PULL_TO_REFRESH = 0;    //下拉刷新
+    public static final int RELEASE_TO_REFRESH = 1; //松开刷新
+    public static final int REFRESHING = 2;         //正在刷新
 
     private RotateAnimation rotateUpAnimation;
     private RotateAnimation rotateDownAnimation;
@@ -44,7 +44,6 @@ public class RefreshHeader extends LinearLayout {
 
     public RefreshHeader(Context context, AttributeSet attrs) {
         super(context, attrs);
-
         init(context);
 
     }
@@ -76,7 +75,11 @@ public class RefreshHeader extends LinearLayout {
 
     }
 
-
+    /**
+     * 根据状态设置相应的布局
+     *
+     * @param state
+     */
     public void setHeaderState(int state) {
         if (state == mState && !isFirst) {
             return;
@@ -99,9 +102,6 @@ public class RefreshHeader extends LinearLayout {
                     iv_arrow.startAnimation(rotateDownAnimation);
                 }
 
-                if (mState == REFRESHING) {
-                    iv_arrow.clearAnimation();
-                }
                 tv_pull_state.setText("下拉刷新");
 
 

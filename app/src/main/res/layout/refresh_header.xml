@@ -27,14 +27,14 @@
         </LinearLayout>
 
         <ProgressBar
-            android:visibility="invisible"
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_gravity="center"
             android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@id/ll_pull_state" />
+            android:layout_toLeftOf="@id/ll_pull_state"
+            android:visibility="invisible" />
 
 
         <ImageView
